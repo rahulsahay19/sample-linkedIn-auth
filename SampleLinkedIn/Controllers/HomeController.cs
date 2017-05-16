@@ -13,6 +13,7 @@ namespace SampleLinkedIn.Controllers
             return View();
         }
 
+       // [Authorize]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -25,6 +26,13 @@ namespace SampleLinkedIn.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public FileResult LoadContentResult(int Id)
+        {
+            string filename = Server.MapPath("~/PPTs/") + "VisualStudio2017.pptx";
+            string contentType = "application/vnd.ms-powerpoint";
+            return File(filename, contentType, "sample.pptx");
         }
     }
 }

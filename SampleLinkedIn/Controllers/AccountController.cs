@@ -445,8 +445,15 @@ namespace SampleLinkedIn.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
+            //TODO:- Temp Logic, Need to change
+           if (returnUrl == null)
+            {
+                Session["LoggedInUser"] = User.Identity.GetUserName();
+                return RedirectToAction("About", "Home");
+            }
             if (Url.IsLocalUrl(returnUrl))
             {
+                ViewBag.LoggedInUser = User.Identity.GetUserName();
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");

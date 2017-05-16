@@ -1,7 +1,166 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity
+@{
     ViewBag.Title = "About";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+@{
+    if (Session["LoggedInUser"] != null)
+    {
+        Session["LoggedInUser"] = User.Identity.GetUserName();
+    }
+    else
+    {
+        Session["LoggedInUser"] = "";
+    }
+}
+Logged in User: @Session["LoggedInUser"]
 
-<p>Use this area to provide additional information.</p>
+<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+        <table class="table table-striped custab">
+            <thead>
+                <tr>
+                    <th>Slide Name</th>
+                    @{
+                        if ((string)Session["LoggedInUser"] == "")
+                        {
+                            <th>Request Download</th>
+                        }
+                        else
+                        {
+                            <th style="display: none">Request Download</th>
+                        }
+                    }
+                    @{
+                        if ((string)Session["LoggedInUser"] != "")
+                        {
+                            <th>Download Now</th>
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                </tr>
+            </thead>
+            <tr>
+                <td>Visual Studio 2017</td>
+                @{
+                    if ((string)Session["LoggedInUser"] == "")
+                    {
+                        <td class="text-left">
+                            <input type="button" onclick="downloadContent()" class='btn btn-info btn-xs' value="Request-Download" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-left" style="display: none">
+                            <input type="button" onclick="downloadContent()" class='btn btn-info btn-xs' value="Request-Download" />
+                        </td>
+                    }
+                }
+                @{
+                    if ((string)Session["LoggedInUser"] != "")
+                    {
+                        <td class="text-left">
+                            <input type="button" onclick="downloadNow(1)" class='btn btn-info btn-xs' value="Download Now" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-left" style="display: none">
+                            <input type="button" onclick="downloadNow(1)" class='btn btn-info btn-xs' value="Download Now" />
+                        </td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>ASP.NET Core</td>
+                @{
+                    if ((string)Session["LoggedInUser"] == "")
+                    {
+                        <td class="text-left">
+                            <input type="button" onclick="downloadContent()" class='btn btn-info btn-xs' value="Request-Download" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-left" style="display: none">
+                            <input type="button" onclick="downloadContent()" class='btn btn-info btn-xs' value="Request-Download" />
+                        </td>
+                    }
+                }
+                @{
+                    if ((string)Session["LoggedInUser"] != "")
+                    {
+                        <td class="text-left">
+                            <input type="button" onclick="downloadNow(2)" class='btn btn-info btn-xs' value="Download Now" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-left" style="display: none">
+                            <input type="button" onclick="downloadNow(2)" class='btn btn-info btn-xs' value="Download Now" />
+                        </td>
+                    }
+                }
+            </tr>
+            <tr>
+                <td>Build Conference</td>
+                @{
+                    if ((string)Session["LoggedInUser"] == "")
+                    {
+                        <td class="text-left">
+                            <input type="button" onclick="downloadContent()" class='btn btn-info btn-xs' value="Request-Download" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-left" style="display: none">
+                            <input type="button" onclick="downloadContent()" class='btn btn-info btn-xs' value="Request-Download" />
+                        </td>
+                    }
+                }
+                @{
+                    if ((string)Session["LoggedInUser"] != "")
+                    {
+                        <td class="text-left">
+                            <input type="button" onclick="downloadNow(3)" class='btn btn-info btn-xs' value="Download Now" />
+                        </td>
+                    }
+                    else
+                    {
+                        <td class="text-left" style="display: none">
+                            <input type="button" onclick="downloadNow(3)" class='btn btn-info btn-xs' value="Download Now" />
+                        </td>
+                    }
+                }
+            </tr>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    var downloadContent = function () {
+        bootbox.confirm({
+            size: 'medium',
+            message: "For downloading the content, you need to login!!!",
+            callback: function (response) {
+                if (response) {
+                    @*document.location = '@Url.Action("LoadConteResult", "Home")';*@
+                    document.location = '@Url.Action("Login", "Account")';
+                }
+            }
+        });
+    };
+    var downloadNow = function (id) {
+        bootbox.confirm({
+            size: 'medium',
+            message: "Are you sure?",
+            callback: function (response) {
+                if (response) {
+                    document.location = '@Url.Action("LoadContentResult", "Home")?Id='+id;
+                }
+            }
+        });
+    };
+</script>
