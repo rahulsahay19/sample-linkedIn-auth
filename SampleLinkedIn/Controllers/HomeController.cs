@@ -30,9 +30,35 @@ namespace SampleLinkedIn.Controllers
 
         public FileResult LoadContentResult(int Id)
         {
-            string filename = Server.MapPath("~/PPTs/") + "VisualStudio2017.pptx";
-            string contentType = "application/vnd.ms-powerpoint";
-            return File(filename, contentType, "sample.pptx");
+            string fileName;
+            string contentType;
+            var completeString = IdentifyFileToDownload(Id, out fileName, out contentType);
+            return File(completeString, contentType,fileName);
+        }
+
+        private string IdentifyFileToDownload(int Id, out string fileName, out string contentType)
+        {
+            string completeString;
+            var mapPath = Server.MapPath("~/PPTs/");
+          //  string fileName;
+            if (Id == 1)
+            {
+                fileName = "VisualStudio2017.pptx";
+                completeString = mapPath + fileName;
+            }
+            else if (Id == 2)
+            {
+                fileName = "ASPNET.pptx";
+                completeString = mapPath + fileName;
+            }
+            else
+            {
+                fileName = "B812.pptx";
+                completeString = mapPath + fileName;
+            }
+            //string filename = Server.MapPath("~/PPTs/") + "VisualStudio2017.pptx";
+            contentType = "application/vnd.ms-powerpoint";
+            return completeString;
         }
     }
 }
