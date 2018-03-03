@@ -65,7 +65,7 @@ namespace SampleLinkedIn
             //});
 
             app.UseLinkedInAuthentication(clientId: "81x0yb72qe3tgy", clientSecret: "RPOJ1uryR7bWUWlk");
-            
+
 
         }
     }
