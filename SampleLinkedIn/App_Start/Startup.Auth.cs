@@ -64,7 +64,7 @@ namespace SampleLinkedIn
             //    ClientSecret = ""
             //});
 
-            app.UseLinkedInAuthentication(clientId: "8119jnqxjdrd4z", clientSecret: "f48Vdus3qI3rMEWY");
+            app.UseLinkedInAuthentication(clientId: "81x0yb72qe3tgy", clientSecret: "RPOJ1uryR7bWUWlk");
             
 
         }
